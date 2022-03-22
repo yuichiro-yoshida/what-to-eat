@@ -1,8 +1,8 @@
 import { defineNuxtPlugin } from "#app"
-import PrimeVue from "primevue/config"
-import InputText from 'primevue/inputtext'
-import Checkbox from 'primevue/checkbox'
-import TabMenu from "primevue/tabmenu"
+import PrimeVue from "primevue/config/config.esm.js"
+import InputText from 'primevue/inputtext/InputText.vue'
+import Checkbox from 'primevue/checkbox/Checkbox.vue'
+import TabMenu from "primevue/tabmenu/TabMenu.vue"
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, {ripple: true})
