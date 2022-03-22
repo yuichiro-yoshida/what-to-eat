@@ -67,7 +67,7 @@ const timingCheckboxes = [
 const tabs: Tab[] = [
   { label: 'すべて', desirability: DESIRABILITY.all },
   { label: '食べた方が良いもの', desirability: DESIRABILITY.betterEat },
-  { label: '食べない方が良いもの', desirability: DESIRABILITY.bestAvoided }
+  { label: '避けた方が良いもの', desirability: DESIRABILITY.bestAvoided }
 ]
 
 const { inputText, checkedTiming, activeTabIndex, filteredFoods } = useFilteredFoods(tabs)
