@@ -37,9 +37,9 @@
 
 <script lang="ts">
 import { reactive } from 'vue'
-import InputText from 'primevue/inputtext/InputText.vue'
-import Checkbox from 'primevue/checkbox/Checkbox.vue'
-import TabMenu from 'primevue/tabmenu/TabMenu.vue'
+import InputText from 'primevue/inputtext'
+import Checkbox from 'primevue/checkbox'
+import TabMenu from 'primevue/tabmenu'
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
 import Tab from '../types/ui/tab'
