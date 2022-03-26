@@ -6,9 +6,19 @@ export default defineNuxtConfig({
     transpile: ['primevue']
   },
   css: [
-    '~/assets/scss/reset.scss',
+    '@/assets/scss/reset.scss',
+    '@/assets/scss/common.scss',
     'primevue/resources/themes/saga-blue/theme.css',
     'primevue/resources/primevue.css',
     'primeicons/primeicons.css'
-  ]
+  ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/assets/scss/_mixins.scss";',
+        },
+      },
+    },
+  },
 })

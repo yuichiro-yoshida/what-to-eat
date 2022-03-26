@@ -1,0 +1,8 @@
+
+@mixin link-effect {
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

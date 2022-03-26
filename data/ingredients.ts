@@ -16,13 +16,11 @@ const folicAcid: Ingredient = {
   ],
   effect: 'あああ',
   targetAmount: 240,
-  unit: 'μg/日',
-  note: '',
-  sourceUrl: 'https://www.elevit.jp/nutrition/folic-acid/foodlist/'
+  unit: 'μg / 日'
 }
 
 const sample1: Ingredient = {
-  code: INGREDIENT.folicAcid,
+  code: INGREDIENT.sample1,
   name: 'sampleIngredient1',
   desirability: DESIRABILITY.bestAvoided,
   timing: [
@@ -31,9 +29,7 @@ const sample1: Ingredient = {
   ],
   effect: 'あああ',
   targetAmount: 240,
-  unit: 'μg/日',
-  note: '',
-  sourceUrl: 'https://www.elevit.jp/nutrition/folic-acid/foodlist/'
+  unit: 'μg / 日'
 }
 
 export default {

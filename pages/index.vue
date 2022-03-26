@@ -1,84 +1,439 @@
 <template>
   <div>
-    <div>
-      <h2>食材名 / 栄養素名で絞り込み:</h2>
-      <InputText type="text" v-model="inputText" />
-    </div>
-    <div>
-      <h2>時期で絞り込み:</h2>
-      <div v-for="choice in timingCheckboxes">
-        <Checkbox :id="`timing-${choice.timing}`" name="timing" :value="choice.timing" v-model="checkedTiming" />
-        <label :for="`timing-${choice.timing}`">{{ choice.name }}</label>
+    <div class="conditionList">
+      <div class="condition">
+        <h3 class="condition_heading">食材名 / 成分名</h3>
+        <InputText
+          class="condition_inputText"
+          type="text"
+          v-model="inputText"
+          placeholder="例）ブロッコリー、葉酸、など"
+        />
+      </div>
+      <div class="condition">
+        <h3 class="condition_heading">成分</h3>
+        <ul class="condition_checkboxList">
+          <li
+            class="condition_checkboxWrapper"
+            v-for="option in ingredientsMaster"
+          >
+            <Checkbox
+              class="condition_checkbox"
+              :id="`ingredient-${option.code}`"
+              name="ingredient" :value="option.code"
+              v-model="checkedIngredients"
+            />
+            <label
+              class="condition_checkboxLabel"
+              :for="`ingredient-${option.code}`"
+            >
+              {{ option.name }}
+            </label>
+          </li>
+        </ul>
+      </div>
+      <div class="condition">
+        <h3 class="condition_heading">時期</h3>
+        <ul class="condition_checkboxList">
+          <li
+            class="condition_checkboxWrapper"
+            v-for="option in timingCheckboxes"
+          >
+            <Checkbox
+              class="condition_checkbox"
+              :id="`timing-${option.timing}`"
+              name="ingredient" :value="option.timing"
+              v-model="checkedTimings"
+            />
+            <label
+              class="condition_checkboxLabel"
+              :for="`timing-${option.timing}`"
+            >
+              {{ option.label }}
+            </label>
+          </li>
+        </ul>
       </div>
     </div>
-    <div>
+    <div class="tabs">
       <TabMenu
         :model="tabs"
         :active-index="activeTabIndex"
         @tab-change="event => activeTabIndex = event.index"
       />
     </div>
-    <ul>
-      <li v-for="food in filteredFoods" style="border-bottom: 1px solid gray">
-        <dl>
-          <dt>食材名</dt>
-          <dd>{{ food.name }}</dd>
-          <div v-for="ingredient in food.ingredients">
-            <dt>栄養素名</dt>
-            <dd>{{ ingredient.ingredient.name }}</dd>
-            <dt>摂取区分</dt>
-            <dd>{{ ingredient.ingredient.desirability === DESIRABILITY.betterEat ? '食べた方が良い' : '避けた方が良い' }}</dd>
-          </div>
-        </dl>
-      </li>
-    </ul>
+    <div class="table">
+      <DataTable :value="filteredFoods">
+        <Column
+          header="名前"
+          style="width: 300px; max-width: 300px;"
+        >
+          <template #body="slotProps">
+            <div class="columnName">
+              <img
+                class="columnName_image"
+                :src="slotProps.data.imageUrl"
+                :alt="slotProps.data.name"
+              />
+              <i :class="`columnName_thumbsIcon pi pi-thumbs-${isDesirableFood(slotProps.data) ? 'up' : 'down'}`"></i>
+              <p>{{ slotProps.data.name }}</p>
+            </div>
+          </template>
+        </Column>
+        <Column header="成分">
+          <template #body="slotProps">
+            <div
+              class="columnIngredient"
+            >
+              <ul
+                class="columnIngredient_ingredientList"
+                v-for="i in slotProps.data.ingredients"
+              >
+                <li class="columnIngredient_ingredientItem">
+                  <h3 class="columnIngredient_ingredientHeading">
+                    <i :class="`columnIngredient_thumbsIcon pi pi-thumbs-${isDesirableFood(slotProps.data) ? 'up' : 'down'}`"></i>
+                    {{ i.ingredient.name }}
+                  </h3>
+                  <ul>
+                    <li class="columnIngredient_detailItem">
+                      {{ `${i.contentAmount}${i.contentUnit} / ${i.unitAmount}（目標${i.ingredient.targetAmount}${i.ingredient.unit}）` }}
+                    </li>
+                    <li class="columnIngredient_detailItem">
+                      効果：{{ i.ingredient.effect }}
+                    </li>
+                    <li
+                      class="columnIngredient_detailItem"
+                      v-if="i.recommendedWay"
+                    >
+                      おすすめの食べ方：{{ i.recommendedWay }}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </template>
+        </Column>
+        <Column
+          header="時期"
+          style="width: 130px; max-width: 130px;"
+        >
+          <template #body="slotProps">
+            <div class="columnTiming">
+              <ul
+                class="columnTiming_timingList"
+                v-for="timing in getTimingList(slotProps.data)"
+              >
+                <li class="columnTiming_timingListItem">
+                  <i :class="`columnTiming_thumbsIcon pi pi-thumbs-${isDesirableFood(slotProps.data) ? 'up' : 'down'}`"></i>
+                  {{ timing.label }}
+                </li>
+              </ul>
+            </div>
+          </template>
+        </Column>
+        <Column
+          header="備考"
+          style="width: 200px; max-width: 200px;"
+        >
+          <template #body="slotProps">
+            <div class="columnNote">
+              <ul
+                class="columnNote_noteList"
+                v-for="ingredient in slotProps.data.ingredients"
+              >
+                <li
+                  class="columnNote_noteListItem"
+                  v-if="ingredient.note"
+                >
+                  {{ ingredient.note }}
+                </li>
+              </ul>
+            </div>
+          </template>
+        </Column>
+        <Column
+          header="出典URL"
+          style="width: 200px; max-width: 200px;"
+        >
+          <template #body="slotProps">
+            <div class="columnSource">
+              <ul
+                class="columnSource_sourceList"
+                v-for="ingredient in slotProps.data.ingredients"
+              >
+                <li
+                  class="columnSource_sourceListItem"
+                  v-if="ingredient.sourceUrl"
+                >
+                  <a
+                    class="columnSource_sourceLink"
+                    :href="ingredient.sourceUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ ingredient.sourceUrl }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </template>
+        </Column>
+      </DataTable>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import InputText from 'primevue/inputtext'
 import Checkbox from 'primevue/checkbox'
 import TabMenu from 'primevue/tabmenu'
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
+import ingredients from '../data/ingredients'
+import TimingCheckbox from '../types/ui/timingCheckbox'
 import Tab from '../types/ui/tab'
+import Food from '../types/food'
+import Ingredient from '../types/ingredient'
 import useFilteredFoods from '../composables/use-filtered-foods'
 
 export default defineComponent({
   components: {
     InputText,
     Checkbox,
-    TabMenu
+    TabMenu,
+    DataTable,
+    Column
   }
 })
 </script>
 
 <script setup lang="ts">
 reactive<Object>(DESIRABILITY)
+const ingredientsMaster = ref<Ingredient[]>(Object.values(ingredients))
 
-const timingCheckboxes = [
-  { timing: TIMING.early, name: '妊娠初期' },
-  { timing: TIMING.middle, name: '妊娠中期' },
-  { timing: TIMING.late, name: '妊娠後期' },
-  { timing: TIMING.milk, name: '授乳期' }
+const timingCheckboxes: TimingCheckbox[] = [
+  { timing: TIMING.early, label: '妊娠初期' },
+  { timing: TIMING.middle, label: '妊娠中期' },
+  { timing: TIMING.late, label: '妊娠後期' },
+  { timing: TIMING.milk, label: '授乳期' }
 ]
 
 const tabs: Tab[] = [
-  { label: 'すべて', desirability: DESIRABILITY.all },
-  { label: '食べた方が良いもの', desirability: DESIRABILITY.betterEat },
-  { label: '避けた方が良いもの', desirability: DESIRABILITY.bestAvoided }
+  { desirability: DESIRABILITY.all, label: 'すべて' },
+  { desirability: DESIRABILITY.betterEat, label: '食べよう', icon: 'pi pi-fw pi-thumbs-up' },
+  { desirability: DESIRABILITY.bestAvoided, label: '避けよう', icon: 'pi pi-fw pi-thumbs-down' }
 ]
 
-const { inputText, checkedTiming, activeTabIndex, filteredFoods } = useFilteredFoods(tabs)
+const {
+  inputText,
+  checkedIngredients,
+  checkedTimings,
+  activeTabIndex,
+  filteredFoods
+} = useFilteredFoods(tabs)
+
+const isDesirableFood = (food: Food): boolean => {
+  return food.ingredients.some(i => i.ingredient.desirability === DESIRABILITY.betterEat)
+}
+
+const getTimingList = (food: Food): TimingCheckbox[] => {
+  const timingList = food.ingredients
+    .map(i => i.ingredient.timing)
+    .reduce((previous, current) => previous.concat(current))
+
+  return timingCheckboxes.filter(t => timingList.includes(t.timing))
+}
 </script>
 
 <style lang="scss" scoped>
-// FIXME 仮
-dt {
-  color: gray;
+.conditionList {
+  border: 1px solid #b0a7a7;
+  border-radius: 8px;
+  padding: 20px 80px 20px 20px;
+  display: flex;
+  // max-width: fit-content;
+  max-height: 192px;
 }
-// UIライブラリPrimeVUEの、タブのCSSが初期表示時に一瞬崩れるのを修正する
+.condition {
+  & + & {
+    margin: 0 0 0 40px;
+  }
+  &_heading {
+    margin: 0 0 8px;
+    font-weight: bold;
+  }
+  &_inputText {
+    &::placeholder {
+      font-size: 12px;
+      color: #cccccc;
+    }
+  }
+  &_checkboxList {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+  }
+  &_checkboxWrapper {
+    margin: 0 0 8px;
+    &:nth-child(n + 5) {
+      margin-left: 20px;
+    }
+  }
+  &_checkbox {
+    margin: 0 4px 0 0;
+    
+  }
+  &_checkboxLabel {
+    @include link-effect;
+    cursor: pointer;
+    font-size: 13px;
+  }
+}
+.tabs {
+  margin: 20px 0 12px;
+}
+.columnName {
+  display: flex;
+  align-items: center;
+  &_image {
+    width: 48px;
+  }
+  &_thumbsIcon {
+    margin: 0 4px 0 12px;
+  }
+  // PrimeVueのクラス
+  .pi-thumbs-up {
+    color: #f79b9b;
+  }
+  .pi-thumbs-down {
+    color: #7190bd;
+  }
+}
+.columnIngredient {
+  // PrimeVueのクラス
+  .pi-thumbs-up {
+    color: #f79b9b;
+  }
+  .pi-thumbs-down {
+    color: #7190bd;
+  }
+  &_ingredientList {
+    & + & {
+      margin: 8px 0 0;
+    }
+  }
+  &_ingredientHeading {
+    font-size: 14px;
+  }
+  &_detailItem {
+    list-style-type: disc;
+    margin: 0 0 0 40px;
+    font-size: 14px;
+  }
+}
+.columnTiming {
+  &_thumbsIcon {
+    font-size: 13px;
+  }
+  // PrimeVueのクラス
+  .pi-thumbs-up {
+    color: #f79b9b;
+  }
+  .pi-thumbs-down {
+    color: #7190bd;
+  }
+  &_timingListItem {
+    font-size: 14px;
+  }
+}
+.columnNote {
+  &_noteList {
+    list-style-type: disc;
+  }
+  &_noteListItem {
+    margin: 8px 0 0 12px;
+    word-break: break-all;
+    font-size: 14px;
+  }
+}
+.columnSource {
+  &_sourceList {
+    list-style-type: disc;
+  }
+  &_sourceList {
+    margin: 8px 0 0 12px;
+  }
+  &_sourceLink {
+    color: #0a95ff;
+    @include link-effect;
+    word-break: break-all;
+    font-size: 14px;
+  }
+}
+
+/* UIライブラリPrimeVueのスタイル上書き */
+// table
+::v-deep(.p-datatable .p-datatable-thead tr th:first-child) {
+  border-top-left-radius: 8px;
+}
+::v-deep(.p-datatable .p-datatable-thead tr th:last-child) {
+  border-top-right-radius: 8px;
+}
+::v-deep(.p-datatable .p-datatable-tbody tr:last-child td:first-child) {
+  border-bottom-left-radius: 8px;
+}
+::v-deep(.p-datatable .p-datatable-tbody tr:last-child td:last-child) {
+  border-bottom-right-radius: 8px;
+}
+::v-deep(.p-datatable .p-datatable-tbody tr td) {
+  vertical-align: middle;
+}
+// タブの色
+::v-deep(.p-tabmenu .p-tabmenu-nav),
+::v-deep(.p-tabmenu .p-tabmenu-nav .p-menuitem-link),
+::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link),
+::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link) {
+  background: #f7ebeb;
+  border-bottom-color: #d3c9c9;
+}
+::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link) {
+  color: #f79b9b;
+  border-color: #f79b9b;
+}
+::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus) {
+  box-shadow: inset 0 0 0 0.2rem #f7c3c3;
+}
+::v-deep(.p-tabmenuitem) {
+  @include link-effect;
+}
+// inputTextの色を変更
+::v-deep(.p-inputtext:enabled:focus) {
+  border-color: #f79b9b;
+  box-shadow: 0 0 0 0.2rem #f7c3c3;
+}
+::v-deep(.p-inputtext:enabled:hover) {
+  border-color: #f79b9b;
+}
+// チェックボックスの色を変更
+::v-deep(.p-checkbox .p-checkbox-box.p-highlight) {
+  background: #f7c3c3;
+  border-color: #f7c3c3;
+}
+::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover) {
+  border-color: #f79b9b;
+  background: #f79b9b;
+}
+::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover) {
+  border-color: #f79b9b;
+}
+::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus) {
+  box-shadow: 0 0 0 0.1rem #f79b9b;
+  border-color: #f79b9b;
+}
+// タブのCSSが初期表示時に一瞬崩れるのを修正する
 ::v-deep(.p-tabmenu .p-tabmenu-nav) {
   display: flex;
 }
