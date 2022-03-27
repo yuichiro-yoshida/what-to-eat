@@ -14,7 +14,6 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
-import InputText from 'primevue/inputtext'
 
 const props = defineProps({
   defaultValue: {

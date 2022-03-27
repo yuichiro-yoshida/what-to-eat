@@ -13,10 +13,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
-import TabMenu from 'primevue/tabmenu'
-
-const props = defineProps({
+defineProps({
   tabs: Array,
   activeTabIndex: Number
 })

@@ -14,7 +14,6 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
-import Checkbox from 'primevue/checkbox'
 
 const props = defineProps({
   value: null,
