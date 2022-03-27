@@ -4,7 +4,6 @@
       <div class="condition">
         <h3 class="condition_heading">食材名 / 成分名</h3>
         <AtomsInputText
-          class="condition_inputText"
           v-model:defaultValue="inputText"
           placeholder="例）ブロッコリー、葉酸、など"
         />
@@ -247,12 +246,6 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   &_heading {
     margin: 0 0 8px;
     font-weight: bold;
-  }
-  &_inputText {
-    &::placeholder {
-      font-size: 12px;
-      color: $color-placeholder-gray;
-    }
   }
   &_checkboxList {
     display: grid;

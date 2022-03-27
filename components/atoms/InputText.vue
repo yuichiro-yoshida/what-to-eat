@@ -43,13 +43,13 @@ watchEffect(() => emit('update:defaultValue', innerValue.value))
       border-color: $color-quiet-red-darker;
       box-shadow: 0 0 0 0.2rem $color-quiet-red;
     }
-  }
-}
-.p-inputtext {
-  &:enabled {
     &:hover {
       border-color: $color-quiet-red-darker;
     }
+  }
+  &::placeholder {
+    font-size: 12px;
+    color: $color-placeholder-gray;
   }
 }
 </style>
