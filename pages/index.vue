@@ -5,15 +5,12 @@
       v-model:checkedIngredients="checkedIngredients"
       v-model:checkedTimings="checkedTimings"
     />
-    <div class="tabs">
-      <MoleculesTabMenu
-        :tabs="TABS"
-        v-model:activeTabIndex="activeTabIndex"
-      />
-    </div>
-    <div class="table">
-      <OrganismsFoodsTable :foods="filteredFoods" />
-    </div>
+    <MoleculesTabMenu
+      class="tabs"
+      :tabs="TABS"
+      v-model:activeTabIndex="activeTabIndex"
+    />
+    <OrganismsFoodsTable :foods="filteredFoods" />
   </div>
 </template>
 
