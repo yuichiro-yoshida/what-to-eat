@@ -54,10 +54,9 @@
       </div>
     </div>
     <div class="tabs">
-      <TabMenu
-        :model="tabs"
-        :active-index="activeTabIndex"
-        @tab-change="event => activeTabIndex = event.index"
+      <MoleculesTabMenu
+        :tabs="tabs"
+        v-model:activeTabIndex="activeTabIndex"
       />
     </div>
     <div class="table">
@@ -185,6 +184,7 @@
 import { ref, reactive } from 'vue'
 import AtomsInputText from '../components/atoms/InputText.vue'
 import AtomsCheckbox from '../components/atoms/Checkbox.vue'
+import MoleculesTabMenu from '../components/molecules/TabMenu.vue'
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
 import ingredients from '../data/ingredients'
@@ -364,32 +364,5 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
 }
 ::v-deep(.p-datatable .p-datatable-tbody tr td) {
   vertical-align: middle;
-}
-// タブの色
-::v-deep(.p-tabmenu .p-tabmenu-nav),
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-menuitem-link),
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link),
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link) {
-  background: $color-quiet-red-lighter;
-  border-bottom-color: $color-red-like-gray;
-}
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link) {
-  color: $color-quiet-red-darker;
-  border-color: $color-quiet-red-darker;
-}
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus) {
-  box-shadow: inset 0 0 0 0.2rem $color-quiet-red;
-}
-::v-deep(.p-tabmenuitem) {
-  @include link-effect;
-}
-// タブのCSSが初期表示時に一瞬崩れるのを修正する
-::v-deep(.p-tabmenu .p-tabmenu-nav) {
-  display: flex;
-}
-::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link) {
-  height: 50px;
-  display: flex;
-  align-items: center;
 }
 </style>
