@@ -19,6 +19,7 @@ https://i-dont-know-what-to-eat.vercel.app/
 - Nuxt3（実装時点ではbeta版）, Vue3（composition-api）
 - TypeScript
 - PrimeVue（Vue3対応のUIライブラリ）
+- AIロゴジェネレーター https://brandmark.io/
 
 ## 開発ロードマップ
 GitHubのプロジェクト機能で管理しています。
