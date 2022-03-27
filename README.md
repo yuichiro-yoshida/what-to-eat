@@ -16,7 +16,7 @@ https://i-dont-know-what-to-eat.vercel.app/
 - 食べ物の情報からは、妊娠に影響する含まれる成分名や、その効果・含有量、おすすめの食べ方などがわかります
 
 ## 主な技術スタック
-- Nuxt3（実装時点ではbeta版）, Vue3（composition-api）
+- Nuxt3（実装時点ではbeta版）, Vue3（Composition API）
 - TypeScript
 - PrimeVue（Vue3対応のUIライブラリ）
 - AIロゴジェネレーター https://brandmark.io/
