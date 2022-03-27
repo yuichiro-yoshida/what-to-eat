@@ -8,7 +8,7 @@
 
 <script lang="ts">
 export default defineComponent({
-  name: 'MoleculesCheckbox'
+  name: 'AtomsCheckbox'
 })
 </script>
 

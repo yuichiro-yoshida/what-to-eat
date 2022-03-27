@@ -15,7 +15,7 @@
             class="condition_checkboxWrapper"
             v-for="option in ingredientsMaster"
           >
-            <MoleculesCheckbox
+            <AtomsCheckbox
               :id="`ingredient-${option.code}`"
               name="ingredient"
               :value="option.code"
@@ -37,7 +37,7 @@
             class="condition_checkboxWrapper"
             v-for="option in timingCheckboxes"
           >
-            <MoleculesCheckbox
+            <AtomsCheckbox
               :id="`timing-${option.timing}`"
               name="timing"
               :value="option.timing"
@@ -184,7 +184,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import AtomsInputText from '../components/atoms/InputText.vue'
-import MoleculesCheckbox from '../components/molecules/Checkbox.vue'
+import AtomsCheckbox from '../components/atoms/Checkbox.vue'
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
 import ingredients from '../data/ingredients'
