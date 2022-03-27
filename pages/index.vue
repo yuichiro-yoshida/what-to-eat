@@ -11,6 +11,7 @@
       v-model:activeTabIndex="activeTabIndex"
     />
     <OrganismsFoodsTable :foods="filteredFoods" />
+    <p class="disclaimer">※食材データは手動で随時追加していくため、まだ不十分な点はご了承ください。</p>
   </div>
 </template>
 
@@ -33,5 +34,9 @@ const {
 <style lang="scss" scoped>
 .tabs {
   margin: 20px 0 12px;
+}
+.disclaimer {
+  margin: 12px 0 0;
+  font-size: 12px;
 }
 </style>
