@@ -6,7 +6,6 @@ import TIMING from '../constants/timing'
 import Ingredient from '../types/ingredient'
 import Timimg from '../types/timing'
 import Food from '../types/food'
-import Tab from '../types/ui/tab'
 import foods from '../data/foods'
 import intersection from 'lodash.intersection'
 
