@@ -1,4 +1,5 @@
 import { ref, computed } from 'vue'
+import TABS from '../constants/ui/tabs'
 import DESIRABILITY from '../constants/desirability'
 import INGREDIENT from '../constants/ingredient'
 import TIMING from '../constants/timing'
@@ -9,7 +10,7 @@ import Tab from '../types/ui/tab'
 import foods from '../data/foods'
 import intersection from 'lodash.intersection'
 
-const useFilteredFoods = (tabs: Tab[]) => {
+const useFilteredFoods = () => {
   const inputText = ref<string>('')
   const checkedIngredients = ref<Ingredient['code'][]>(Object.values(INGREDIENT))
   const checkedTimings = ref<Timimg[]>(Object.values(TIMING))
@@ -19,11 +20,11 @@ const useFilteredFoods = (tabs: Tab[]) => {
     let filtered: Food[] = []
 
     // タブで絞り込み
-    filtered = tabs[activeTabIndex.value].desirability === DESIRABILITY.all
+    filtered = TABS[activeTabIndex.value].desirability === DESIRABILITY.all
       ? foods
       : foods.filter(
         f => f.ingredients.some(
-          i => i.ingredient.desirability === tabs[activeTabIndex.value].desirability
+          i => i.ingredient.desirability === TABS[activeTabIndex.value].desirability
         )
       )
 
