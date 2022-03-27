@@ -34,11 +34,11 @@
   display: flex;
   justify-content: center;
   padding: 8px 0;
-  background: #f7c3c3;
+  background: $color-quiet-red;
 
   &_link {
     @include link-effect;
-    color: #0a95ff;
+    color: $color-link-blue;
     margin: 0 0 0 8px;
   }
 }

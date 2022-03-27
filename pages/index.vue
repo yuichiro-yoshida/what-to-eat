@@ -250,7 +250,7 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
 
 <style lang="scss" scoped>
 .conditionList {
-  border: 1px solid #b0a7a7;
+  border: 1px solid $color-red-like-gray-darker;
   border-radius: 8px;
   padding: 20px 80px 20px 20px;
   display: flex;
@@ -268,7 +268,7 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   &_inputText {
     &::placeholder {
       font-size: 12px;
-      color: #cccccc;
+      color: $color-placeholder-gray;
     }
   }
   &_checkboxList {
@@ -306,19 +306,19 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   }
   // PrimeVueのクラス
   .pi-thumbs-up {
-    color: #f79b9b;
+    color: $color-quiet-red-darker;
   }
   .pi-thumbs-down {
-    color: #7190bd;
+    color: $color-dark-blue;
   }
 }
 .columnIngredient {
   // PrimeVueのクラス
   .pi-thumbs-up {
-    color: #f79b9b;
+    color: $color-quiet-red-darker;
   }
   .pi-thumbs-down {
-    color: #7190bd;
+    color: $color-dark-blue;
   }
   &_ingredientList {
     & + & {
@@ -340,10 +340,10 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   }
   // PrimeVueのクラス
   .pi-thumbs-up {
-    color: #f79b9b;
+    color: $color-quiet-red-darker;
   }
   .pi-thumbs-down {
-    color: #7190bd;
+    color: $color-dark-blue;
   }
   &_timingListItem {
     font-size: 14px;
@@ -367,8 +367,8 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
     margin: 8px 0 0 12px;
   }
   &_sourceLink {
-    color: #0a95ff;
     @include link-effect;
+    color: $color-link-blue;
     word-break: break-all;
     font-size: 14px;
   }
@@ -396,42 +396,42 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
 ::v-deep(.p-tabmenu .p-tabmenu-nav .p-menuitem-link),
 ::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link),
 ::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem:not(.p-highlight):not(.p-disabled):hover .p-menuitem-link) {
-  background: #f7ebeb;
-  border-bottom-color: #d3c9c9;
+  background: $color-quiet-red-lighter;
+  border-bottom-color: $color-red-like-gray;
 }
 ::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link) {
-  color: #f79b9b;
-  border-color: #f79b9b;
+  color: $color-quiet-red-darker;
+  border-color: $color-quiet-red-darker;
 }
 ::v-deep(.p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link:not(.p-disabled):focus) {
-  box-shadow: inset 0 0 0 0.2rem #f7c3c3;
+  box-shadow: inset 0 0 0 0.2rem $color-quiet-red;
 }
 ::v-deep(.p-tabmenuitem) {
   @include link-effect;
 }
 // inputTextの色を変更
 ::v-deep(.p-inputtext:enabled:focus) {
-  border-color: #f79b9b;
-  box-shadow: 0 0 0 0.2rem #f7c3c3;
+  border-color: $color-quiet-red-darker;
+  box-shadow: 0 0 0 0.2rem $color-quiet-red;
 }
 ::v-deep(.p-inputtext:enabled:hover) {
-  border-color: #f79b9b;
+  border-color: $color-quiet-red-darker;
 }
 // チェックボックスの色を変更
 ::v-deep(.p-checkbox .p-checkbox-box.p-highlight) {
-  background: #f7c3c3;
-  border-color: #f7c3c3;
+  background: $color-quiet-red;
+  border-color: $color-quiet-red;
 }
 ::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover) {
-  border-color: #f79b9b;
-  background: #f79b9b;
+  border-color: $color-quiet-red-darker;
+  background: $color-quiet-red-darker;
 }
 ::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover) {
-  border-color: #f79b9b;
+  border-color: $color-quiet-red-darker;
 }
 ::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus) {
-  box-shadow: 0 0 0 0.1rem #f79b9b;
-  border-color: #f79b9b;
+  box-shadow: 0 0 0 0.1rem $color-quiet-red-darker;
+  border-color: $color-quiet-red-darker;
 }
 // タブのCSSが初期表示時に一瞬崩れるのを修正する
 ::v-deep(.p-tabmenu .p-tabmenu-nav) {
