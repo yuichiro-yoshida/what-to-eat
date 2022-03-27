@@ -3,10 +3,9 @@
     <div class="conditionList">
       <div class="condition">
         <h3 class="condition_heading">食材名 / 成分名</h3>
-        <InputText
+        <AtomsInputText
           class="condition_inputText"
-          type="text"
-          v-model="inputText"
+          v-model:defaultValue="inputText"
           placeholder="例）ブロッコリー、葉酸、など"
         />
       </div>
@@ -183,13 +182,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
-import InputText from 'primevue/inputtext'
-import Checkbox from 'primevue/checkbox'
-import TabMenu from 'primevue/tabmenu'
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
+import AtomsInputText from '../components/atoms/InputText.vue'
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
 import ingredients from '../data/ingredients'
@@ -199,18 +194,6 @@ import Food from '../types/food'
 import Ingredient from '../types/ingredient'
 import useFilteredFoods from '../composables/use-filtered-foods'
 
-export default defineComponent({
-  components: {
-    InputText,
-    Checkbox,
-    TabMenu,
-    DataTable,
-    Column
-  }
-})
-</script>
-
-<script setup lang="ts">
 reactive<Object>(DESIRABILITY)
 const ingredientsMaster = ref<Ingredient[]>(Object.values(ingredients))
 
@@ -408,14 +391,6 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
 }
 ::v-deep(.p-tabmenuitem) {
   @include link-effect;
-}
-// inputTextの色を変更
-::v-deep(.p-inputtext:enabled:focus) {
-  border-color: $color-quiet-red-darker;
-  box-shadow: 0 0 0 0.2rem $color-quiet-red;
-}
-::v-deep(.p-inputtext:enabled:hover) {
-  border-color: $color-quiet-red-darker;
 }
 // チェックボックスの色を変更
 ::v-deep(.p-checkbox .p-checkbox-box.p-highlight) {

@@ -13,5 +13,4 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component('TabMenu', TabMenu)
   nuxtApp.vueApp.component('DataTable', DataTable)
   nuxtApp.vueApp.component('Column', Column)
-  //other components that you need
 })
