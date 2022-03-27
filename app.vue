@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="header">
-      <img src="~/assets/images/logo.png" alt="logo" width="610" height="100">
+      <img src="~/assets/images/logo.png" alt="logo" width="629" height="100">
     </header>
     <div class="container">
       <NuxtPage/>
