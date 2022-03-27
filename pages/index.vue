@@ -15,11 +15,11 @@
             class="condition_checkboxWrapper"
             v-for="option in ingredientsMaster"
           >
-            <Checkbox
-              class="condition_checkbox"
+            <MoleculesCheckbox
               :id="`ingredient-${option.code}`"
-              name="ingredient" :value="option.code"
-              v-model="checkedIngredients"
+              name="ingredient"
+              :value="option.code"
+              v-model:checkedValues="checkedIngredients"
             />
             <label
               class="condition_checkboxLabel"
@@ -37,11 +37,11 @@
             class="condition_checkboxWrapper"
             v-for="option in timingCheckboxes"
           >
-            <Checkbox
-              class="condition_checkbox"
+            <MoleculesCheckbox
               :id="`timing-${option.timing}`"
-              name="ingredient" :value="option.timing"
-              v-model="checkedTimings"
+              name="timing"
+              :value="option.timing"
+              v-model:checkedValues="checkedTimings"
             />
             <label
               class="condition_checkboxLabel"
@@ -184,6 +184,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import AtomsInputText from '../components/atoms/InputText.vue'
+import MoleculesCheckbox from '../components/molecules/Checkbox.vue'
 import DESIRABILITY from '../constants/desirability'
 import TIMING from '../constants/timing'
 import ingredients from '../data/ingredients'
@@ -258,13 +259,10 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
       margin-left: 20px;
     }
   }
-  &_checkbox {
-    margin: 0 4px 0 0;
-    
-  }
   &_checkboxLabel {
     @include link-effect;
     cursor: pointer;
+    margin: 0 0 0 4px;
     font-size: 13px;
   }
 }
@@ -384,22 +382,6 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
 }
 ::v-deep(.p-tabmenuitem) {
   @include link-effect;
-}
-// チェックボックスの色を変更
-::v-deep(.p-checkbox .p-checkbox-box.p-highlight) {
-  background: $color-quiet-red;
-  border-color: $color-quiet-red;
-}
-::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover) {
-  border-color: $color-quiet-red-darker;
-  background: $color-quiet-red-darker;
-}
-::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover) {
-  border-color: $color-quiet-red-darker;
-}
-::v-deep(.p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus) {
-  box-shadow: 0 0 0 0.1rem $color-quiet-red-darker;
-  border-color: $color-quiet-red-darker;
 }
 // タブのCSSが初期表示時に一瞬崩れるのを修正する
 ::v-deep(.p-tabmenu .p-tabmenu-nav) {
