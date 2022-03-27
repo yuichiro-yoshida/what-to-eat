@@ -22,7 +22,7 @@ import MoleculesTabMenu from '../components/molecules/TabMenu.vue'
 import OrganismsConditionList from '../components/organisms/ConditionList.vue'
 import OrganismsFoodsTable from '../components/organisms/FoodsTable.vue'
 import TABS from '../constants/ui/tabs'
-import useFilteredFoods from '../composables/use-filtered-foods'
+import useFilteredFoods from '../composables/useFilteredFoods'
 
 const {
   inputText,
