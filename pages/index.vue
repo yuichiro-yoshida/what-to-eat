@@ -66,7 +66,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import AtomsInputText from '../components/atoms/InputText.vue'
 import AtomsCheckbox from '../components/atoms/Checkbox.vue'
 import MoleculesTabMenu from '../components/molecules/TabMenu.vue'
