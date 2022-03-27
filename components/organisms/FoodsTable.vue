@@ -32,7 +32,7 @@
               </h3>
               <ul>
                 <li class="columnIngredient_detailItem">
-                  {{ `${i.contentAmount}${i.contentUnit} / ${i.unitAmount}（目標${i.ingredient.targetAmount}${i.ingredient.unit}）` }}
+                  含有量：{{ `${i.contentAmount}${i.contentUnit} / ${i.unitAmount}（目標${i.ingredient.targetAmount}${i.ingredient.unit}）` }}
                 </li>
                 <li class="columnIngredient_detailItem">
                   効果：{{ i.ingredient.effect }}
