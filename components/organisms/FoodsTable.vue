@@ -31,17 +31,26 @@
                 {{ i.ingredient.name }}
               </h3>
               <ul>
-                <li class="columnIngredient_detailItem">
-                  含有量：{{ `${i.contentAmount}${i.contentUnit} / ${i.unitAmount}（目標${i.ingredient.targetAmount}${i.ingredient.unit}）` }}
+                <li
+                  class="columnIngredient_detailItem"
+                  v-if="i.contentAmount"
+                >
+                  含有量：{{ `${i.contentAmount}${i.contentUnit} / ${i.unitAmount}（${isDesirableFood(slotProps.data) ? '目標' : '上限'}${i.ingredient.targetAmount}${i.ingredient.unit}）` }}
                 </li>
                 <li class="columnIngredient_detailItem">
-                  効果：{{ i.ingredient.effect }}
+                  {{ isDesirableFood(slotProps.data) ? '効果：' : '影響：' }}{{ i.ingredient.effect }}
                 </li>
                 <li
                   class="columnIngredient_detailItem"
                   v-if="i.recommendedWay"
                 >
                   おすすめの食べ方：{{ i.recommendedWay }}
+                </li>
+                <li
+                  class="columnIngredient_detailItem"
+                  v-if="i.ingredient.note"
+                >
+                  備考：{{ i.ingredient.note }}
                 </li>
               </ul>
             </li>
@@ -153,9 +162,10 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   align-items: center;
   &_image {
     width: 48px;
+    margin: 0 12px 0 0;
   }
   &_thumbsIcon {
-    margin: 0 4px 0 12px;
+    margin: 0 4px 0 0;
   }
   // PrimeVueのクラス
   .pi-thumbs-up {
