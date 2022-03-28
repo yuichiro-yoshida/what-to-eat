@@ -11,4 +11,5 @@ export default interface Ingredient {
   effect: string;
   targetAmount: number;
   unit: string;
+  note: string;
 }

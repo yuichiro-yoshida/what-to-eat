@@ -1,6 +1,7 @@
 const INGREDIENT = {
   folicAcid: 0,
-  sample1: 1
+  iron: 1,
+  foodPoisoning: 2
 } as const
 
 export default INGREDIENT
