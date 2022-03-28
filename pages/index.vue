@@ -11,7 +11,7 @@
       v-model:activeTabIndex="activeTabIndex"
     />
     <OrganismsFoodsTable :foods="filteredFoods" />
-    <p class="disclaimer">※食材データは手動で随時追加していくため、まだ不十分な点はご了承ください。</p>
+    <p class="disclaimer">※食材データ、成分データは手動で随時追加していくため、まだ不十分な点はご了承ください。</p>
   </div>
 </template>
 

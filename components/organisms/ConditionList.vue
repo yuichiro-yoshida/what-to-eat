@@ -8,7 +8,7 @@
         />
       </div>
       <div class="condition">
-        <h3 class="condition_heading">成分</h3>
+        <h3 class="condition_heading">成分やリスク</h3>
         <ul class="condition_checkboxList">
           <li
             class="condition_checkboxWrapper"
@@ -30,7 +30,7 @@
         </ul>
       </div>
       <div class="condition">
-        <h3 class="condition_heading">時期</h3>
+        <h3 class="condition_heading">意識する時期</h3>
         <ul class="condition_checkboxList">
           <li
             class="condition_checkboxWrapper"
