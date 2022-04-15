@@ -237,6 +237,7 @@ const getTimingList = (food: Food): TimingCheckbox[] => {
   }
 }
 
+// コンポーネントライブラリPrimeVueのCSSを上書き
 .p-datatable .p-datatable-thead tr th:first-child {
   border-top-left-radius: 8px;
 }
