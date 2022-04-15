@@ -26,6 +26,7 @@ const updateActiveTabIndex = (index: number): void => {
 </script>
 
 <style lang="scss">
+// コンポーネントライブラリPrimeVueのCSSを上書き（devツールで読み取ったセレクタのまま使用。SCSSに変換するのもそれはそれで見にくかったのでCSSのまま）
 .p-tabmenu .p-tabmenu-nav,
 .p-tabmenu .p-tabmenu-nav .p-menuitem-link,
 .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link,
