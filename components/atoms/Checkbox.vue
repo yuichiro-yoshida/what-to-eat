@@ -32,6 +32,7 @@ watchEffect(() => innerValues.value = props.checkedValues)
 </script>
 
 <style lang="scss">
+// コンポーネントライブラリPrimeVueのCSSを上書き
 .p-checkbox {
   &:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
     border-color: $color-quiet-red-darker;
