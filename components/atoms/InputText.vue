@@ -36,6 +36,7 @@ watchEffect(() => emit('update:defaultValue', innerValue.value))
 </script>
 
 <style lang="scss" scoped>
+// コンポーネントライブラリPrimeVueのCSSを上書き
 .p-inputtext {
   &:enabled {
     &:focus {
